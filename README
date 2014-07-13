@@ -1,3 +1,9 @@
+Forked for quick and dirty? fixes for a project ... 
+I'm not a Perl guy and new to Latexml, thus these patches 
+could break other things.
+
+=======================================================
+
 LaTeXML is a TeX and LaTeX to XML/HTML/MathML converter.
 From XML it can generate various flavors of HTML,
 MathML and ePub, with other formats under development.
