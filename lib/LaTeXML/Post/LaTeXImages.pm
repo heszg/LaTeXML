@@ -283,6 +283,7 @@ sub process {
       else {
         Warn('expected', 'image', undef, "Missing image '$src'; See $workdir/$jobname.log"); } }
 
+  }
     # Finally, modify the original document to record the associated images.
     foreach my $entry (values %table) {
       next unless ($doc->cacheLookup($$entry{key}) || '') =~ /^(.*);(\d+);(\d+);(\d+)$/;
@@ -291,7 +292,6 @@ sub process {
       my $reldest = pathname_relative($image, $doc->getDestinationDirectory);
       foreach my $node (@{ $$entry{nodes} }) {
         $self->setTeXImage($doc, $node, $reldest, $width, $height, $depth); } }
-  }
   $doc->closeCache;    # If opened.
   return $doc; }
 
