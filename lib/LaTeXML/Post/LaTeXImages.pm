@@ -225,7 +225,7 @@ sub process {
     my $texinputs = ".:" . join(':', $doc->getSearchPaths,
       pathname_concat(pathname_installation(), 'texmf'))
       . ":" . ($ENV{TEXINPUTS} || '');
-    my $command = "cd $workdir ; TEXINPUTS=$texinputs $LATEXCMD $jobname > $jobname.output";
+    my $command = "cd $workdir ; cp $jobname.tex $jobname.tl2; iconv -f iso-8859-2 -t utf-8 -o $jobname.tex $jobname.tl2; TEXINPUTS=$texinputs $LATEXCMD $jobname > $jobname.output";
     my $err     = system($command);
 
     # Sometimes latex returns non-zero code, even though it apparently succeeded.
