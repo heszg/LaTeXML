@@ -2667,7 +2667,8 @@ DefMacro('\mskip MuGlue', '\ifmmode\@math@hskip{#1}\else\@text@hskip{#1}\fi');
 
 DefConstructor('\@math@hskip {Dimension}',
   "<ltx:XMHint width='#1'/>",
-  alias => '\hskip',
+# hskip is not working in math mode
+  alias => '\hspace',
   properties => sub { (width => $_[1], isSpace => 1); }
 );
 DefPrimitive('\@text@hskip {Dimension}', sub {

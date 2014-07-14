@@ -68,7 +68,9 @@ Let('\notag', '\nonumber');
 DefConstructor('\tag OptionalMatch:* Digested', '',
   afterDigest => sub {
     AssignValue(EQUATIONROW_NUMBER => $_[1]->getArg(2), 'global'); },
-  mode => 'text');
+  mode => 'text',
+  reversion => ''	# don't put back the tag into the tex markup
+);
 
 # Note that \intertext may or may not be preceded by an explicit \\, with no apparent difference in TeX.
 # latexml, however, can end up with 2, which end up incrementing coutners twice!

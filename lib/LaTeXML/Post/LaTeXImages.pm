@@ -21,6 +21,7 @@ use File::Temp;
 use File::Which;
 use LaTeXML::Post;
 use base qw(LaTeXML::Post::Processor);
+use Encode qw(is_utf8 encode decode);
 
 #======================================================================
 
@@ -179,6 +180,7 @@ sub process {
 
     # Ideally, $dest is relative to document..
     my $dest = $self->desiredResourcePathname($doc, $node, undef, $$self{imagetype});
+    utf8::encode($tex);     # somehow $tex is not in utf-8 representation ... why?
     my $key = (ref $self) . ":" . $tex . ($dest ? ":$dest" : '');
     my $entry = $table{$key};
     if (!$entry) {
@@ -225,7 +227,7 @@ sub process {
     my $texinputs = ".:" . join(':', $doc->getSearchPaths,
       pathname_concat(pathname_installation(), 'texmf'))
       . ":" . ($ENV{TEXINPUTS} || '');
-    my $command = "cd $workdir ; cp $jobname.tex $jobname.tl2; iconv -f iso-8859-2 -t utf-8 -o $jobname.tex $jobname.tl2; TEXINPUTS=$texinputs $LATEXCMD $jobname > $jobname.output";
+    my $command = "cd $workdir ; TEXINPUTS=$texinputs $LATEXCMD $jobname > $jobname.output";
     my $err     = system($command);
 
     # Sometimes latex returns non-zero code, even though it apparently succeeded.
